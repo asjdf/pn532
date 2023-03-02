@@ -1,7 +1,10 @@
 module github.com/asjdf/pn532
 
-go 1.18
+go 1.17
 
-require github.com/tarm/serial v0.0.0-20180830185346-98f6abe2eb07
+require go.bug.st/serial v1.5.0
 
-require golang.org/x/sys v0.0.0-20220520151302-bc2c85ada10a // indirect
+require (
+	github.com/creack/goselect v0.1.2 // indirect
+	golang.org/x/sys v0.0.0-20220829200755-d48e67d00261 // indirect
+)

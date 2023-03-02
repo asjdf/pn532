@@ -59,18 +59,6 @@ const (
 	MifareCmdStore     byte = 0xC2
 )
 
-// ACKFrame The specific ACK frame is used for the synchronization of the packets
-// and also for the abort mechanism. This frame may be used either from the host
-// controller to the PN532 or from the PN532 to the host controller to indicate that
-// the previous frame has been successfully received.
-var ACKFrame = []byte{0x00, 0x00, 0xFF, 0x00, 0xFF, 0x00}
-
-// NACKFrame The specific NACK frame is used for the synchronization of the packets.
-// This frame is used only from the host controller to the PN532 to indicate that
-// the previous response frame has not been successfully received, then asking for
-// the retransmission of the last response frame from the PN532 to the host controller.
-var NACKFrame = []byte{0x00, 0x00, 0xFF, 0xFF, 0x00, 0x00}
-
 // WakeUp When the host controller sends a command to the PN532 on the HSU link in order to
 // exit from Power Down mode, the PN532 needs some delay to be fully operational.
 // Either send a command with large preamble containing dummy data

@@ -3,6 +3,7 @@ package pn532
 import (
 	"bytes"
 	"github.com/asjdf/pn532/command"
+	"go.bug.st/serial"
 	"log"
 	"testing"
 )
@@ -12,7 +13,17 @@ const (
 )
 
 func TestPn532_ReadFrame(t *testing.T) {
-	device, err := Init(testCom)
+	ports, err := serial.GetPortsList()
+	if err != nil {
+		log.Fatal(err)
+		return
+	}
+	if len(ports) == 0 {
+		log.Println("no device, skip test")
+		t.SkipNow()
+		return
+	}
+	device, err := Init(ports[0])
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -20,7 +31,7 @@ func TestPn532_ReadFrame(t *testing.T) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	_, err = device.ReadFrame(5)
+	_, err = device.WaitInfoFrame()
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -28,7 +39,17 @@ func TestPn532_ReadFrame(t *testing.T) {
 }
 
 func TestPn532_FirmwareVersion(t *testing.T) {
-	device, err := Init(testCom)
+	ports, err := serial.GetPortsList()
+	if err != nil {
+		log.Fatal(err)
+		return
+	}
+	if len(ports) == 0 {
+		log.Println("no device, skip test")
+		t.SkipNow()
+		return
+	}
+	device, err := Init(ports[0])
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -40,7 +61,17 @@ func TestPn532_FirmwareVersion(t *testing.T) {
 }
 
 func TestPn532_ReadPassiveTarget(t *testing.T) {
-	device, err := QuickInit(testCom)
+	ports, err := serial.GetPortsList()
+	if err != nil {
+		log.Fatal(err)
+		return
+	}
+	if len(ports) == 0 {
+		log.Println("no device, skip test")
+		t.SkipNow()
+		return
+	}
+	device, err := QuickInit(ports[0])
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -53,7 +84,17 @@ func TestPn532_ReadPassiveTarget(t *testing.T) {
 }
 
 func TestPn532_MifareClassicAuthenticateBlock(t *testing.T) {
-	device, err := QuickInit(testCom)
+	ports, err := serial.GetPortsList()
+	if err != nil {
+		log.Fatal(err)
+		return
+	}
+	if len(ports) == 0 {
+		log.Println("no device, skip test")
+		t.SkipNow()
+		return
+	}
+	device, err := QuickInit(ports[0])
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -76,7 +117,17 @@ func TestPn532_MifareClassicAuthenticateBlock(t *testing.T) {
 }
 
 func TestPn532_MifareClassicReadBlock(t *testing.T) {
-	device, err := QuickInit(testCom)
+	ports, err := serial.GetPortsList()
+	if err != nil {
+		log.Fatal(err)
+		return
+	}
+	if len(ports) == 0 {
+		log.Println("no device, skip test")
+		t.SkipNow()
+		return
+	}
+	device, err := QuickInit(ports[0])
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -104,7 +155,17 @@ func TestPn532_MifareClassicReadBlock(t *testing.T) {
 }
 
 func TestPn532_MifareClassicWriteBlock(t *testing.T) {
-	device, err := QuickInit(testCom)
+	ports, err := serial.GetPortsList()
+	if err != nil {
+		log.Fatal(err)
+		return
+	}
+	if len(ports) == 0 {
+		log.Println("no device, skip test")
+		t.SkipNow()
+		return
+	}
+	device, err := QuickInit(ports[0])
 	if err != nil {
 		log.Fatal(err)
 	}
