@@ -7,6 +7,7 @@ import (
 	"go.bug.st/serial"
 	"log"
 	"strings"
+	"io"
 )
 
 const (
@@ -84,6 +85,10 @@ func (p *Pn532) initSerialReader() {
 		for {
 			tmpLen, err := p.port.Read(tmp)
 			if err != nil {
+				if errors.Is(err, io.EOF) {
+					break
+				}
+
 				panic(err)
 			}
 			for i := 0; i < tmpLen; i++ {
